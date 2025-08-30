@@ -1,0 +1,1685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BADHAO | Professional Content Promotion Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #4a1d96;
+            --secondary: #8b5cf6;
+            --accent: #f43f5e;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --success: #10b981;
+            --text: #334155;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+            --gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #4a1d96 100%);
+            --gradient-secondary: linear-gradient(135deg, #7c3aed 0%, #4a1d96 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .logo h1 {
+            color: var(--primary);
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        
+        .logo span {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -5px;
+            left: 0;
+            background: var(--gradient-primary);
+            transition: var(--transition);
+            border-radius: 10px;
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 16px;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+        }
+        
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+        }
+        
+        .btn-outline:hover {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgcGF0dGVyblRyYW5zZm9ybT0icm90YXRlKDEzNSkgc2NhbGUoMC41KSI+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMyIgZmlsbD0iI2ZmZiIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjcGF0dGVybikiLz48L3N2Zz4=');
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        /* Features Section */
+        .section-title {
+            text-align: center;
+            margin: 80px 0 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+        
+        .section-title p {
+            color: #64748b;
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            text-align: center;
+            border: 1px solid #f1f5f9;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .feature-icon {
+            background: var(--gradient-primary);
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 32px;
+            transform: rotate(-5deg);
+        }
+        
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        /* How It Works */
+        .how-it-works {
+            background: var(--light);
+            padding: 100px 0;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .step {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        
+        .step:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -30px;
+            width: 30px;
+            height: 10px;
+            background: var(--secondary);
+            z-index: 1;
+            opacity: 0.5;
+        }
+        
+        .step:last-child:before {
+            display: none;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 24px;
+            font-weight: 700;
+            box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.3);
+        }
+        
+        /* Dashboard Preview */
+        .dashboard-preview {
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .dashboard-img {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            margin-top: 40px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            background: var(--light);
+            padding: 100px 0;
+        }
+        
+        .testimonial-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        
+        .testimonial-card:before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 60px;
+            color: #e2e8f0;
+            font-family: serif;
+            line-height: 1;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #475569;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+            border: 3px solid #e2e8f0;
+        }
+        
+        /* Top Gurus Section */
+        .top-gurus {
+            padding: 100px 0;
+            background: var(--gradient-primary);
+            color: white;
+        }
+        
+        .guru-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .guru-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .guru-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .guru-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .guru-rating {
+            color: #fbbf24;
+            margin: 10px 0;
+        }
+        
+        .guru-specialty {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+        
+        /* Payment Methods */
+        .payment-methods {
+            padding: 100px 0;
+            background: var(--light);
+        }
+        
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .payment-option {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .payment-option:hover {
+            transform: translateY(-5px);
+        }
+        
+        .payment-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 100px 0;
+            text-align: center;
+            background: var(--gradient-primary);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgcGF0dGVyblRyYW5zZm9ybT0icm90YXRlKDEzNSkgc2NhbGUoMC41KSI+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMyIgZmlsbD0iI2ZmZiIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRo�IxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjcGF0dGVybikiLz48L3N2Zz4=');
+            opacity: 0.3;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .social-icons a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 15px;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #94a3b8;
+            transition: var(--transition);
+        }
+        
+        .close-modal:hover {
+            color: var(--accent);
+        }
+        
+        .modal-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        }
+        
+        .payment-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .payment-card {
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .payment-card:hover {
+            border-color: var(--secondary);
+        }
+        
+        .payment-card.selected {
+            border-color: var(--secondary);
+            background: rgba(139, 92, 246, 0.05);
+        }
+        
+        .payment-card i {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        /* Content Type Selection */
+        .content-types {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .content-type {
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .content-type:hover {
+            border-color: var(--secondary);
+        }
+        
+        .content-type.selected {
+            border-color: var(--secondary);
+            background: rgba(139, 92, 246, 0.05);
+        }
+        
+        .content-type i {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        /* Negotiation Section */
+        .negotiation-container {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .negotiation-status {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .status-indicator {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        
+        .status-green {
+            background-color: var(--success);
+        }
+        
+        .status-red {
+            background-color: var(--accent);
+        }
+        
+        .amount-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .amount-input button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        /* Coin System */
+        .coin-system {
+            background: #fff8e1;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #ffd54f;
+        }
+        
+        .coin-details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        
+        .coin-value {
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        /* User Level System */
+        .level-system {
+            background: #e8f5e9;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #66bb6a;
+        }
+        
+        .level-progress {
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .level-progress-bar {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 5px;
+        }
+        
+        /* AI Prediction Section */
+        .ai-prediction {
+            background: #e3f2fd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #42a5f5;
+        }
+        
+        .prediction-meter {
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .prediction-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            width: 75%; /* Example value */
+        }
+        
+        .prediction-value {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            line-height: 20px;
+        }
+        
+        /* NGO Support Section */
+        .ngo-support {
+            background: #fbe9e7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #ff7043;
+            text-align: center;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin: 20px 0;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px 10px;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .auth-buttons {
+                margin-top: 20px;
+            }
+            
+            .step:before {
+                display: none;
+            }
+            
+            .payment-cards, .content-types {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">B</div>
+                    <h1><span>BADHAO</span></h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#gurus">Top Gurus</a></li>
+                        <li><a href="#dashboard">Dashboard</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <button class="btn btn-outline" onclick="openModal('loginModal')">Login</button>
+                    <button class="btn btn-primary" onclick="openModal('registerModal')">Register</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Boost Your Content with India's Top Promoters</h2>
+                <p>BADHAO connects vendors with professional promoters to maximize your reach and engagement. Promote videos, photos, events, and more with secure payments and transparent tracking.</p>
+                <button class="btn btn-primary" onclick="openModal('registerModal')">Get Started Now</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Premium Promotion Features</h2>
+                <p>Our platform offers everything you need to successfully promote your content and grow your audience</p>
+            </div>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Video Promotion</h3>
+                    <p>Get your videos in front of the right audience with our network of professional promoters.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3>Photo Promotion</h3>
+                    <p>Increase visibility for your photography with targeted promotion campaigns.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>Event Promotion</h3>
+                    <p>Promote weddings, birthdays, and special events to reach more people.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h3>Coin Rewards System</h3>
+                    <p>Earn coins on every transaction and use them for discounts on future promotions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3>Secure Calling</h3>
+                    <p>Communicate with promoters through our secure calling system without sharing personal numbers.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>AI Performance Prediction</h3>
+                    <p>Get AI-powered predictions on how well your content will perform after promotion.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>Simple process to get your content promoted by top promoters</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Create Account</h3>
+                    <p>Sign up as a vendor or promoter and complete your profile with content preferences.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Upload Promotion Request</h3>
+                    <p>Choose content type, target audience, and set your budget for promotion.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Connect & Negotiate</h3>
+                    <p>Promoters make offers, negotiate terms, and agree on final pricing.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Make Payment</h3>
+                    <p>Choose from multiple payment options including EMI and partial payment plans.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <h3>Track Results</h3>
+                    <p>Monitor your promotion campaign performance and view detailed analytics.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Top Gurus Section -->
+    <section class="top-gurus" id="gurus">
+        <div class="container">
+            <div class="section-title" style="color: white;">
+                <h2>Our Top Rated Gurus</h2>
+                <p>Connect with the most trusted promotion experts in the industry</p>
+            </div>
+            <div class="guru-cards">
+                <div class="guru-card">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Guru" class="guru-img">
+                    <h3>Rajesh Kumar</h3>
+                    <div class="guru-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>4.5</span>
+                    </div>
+                    <div class="guru-specialty">YouTube Specialist</div>
+                    <p>Promoted over 500 videos with average 2M+ views</p>
+                    <button class="btn btn-outline" style="border-color: white; color: white; margin-top: 15px;">View Profile</button>
+                </div>
+                <div class="guru-card">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Guru" class="guru-img">
+                    <h3>Priya Sharma</h3>
+                    <div class="guru-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>5.0</span>
+                    </div>
+                    <div class="guru-specialty">Instagram Expert</div>
+                    <p>2M+ followers network with 15% average engagement</p>
+                    <button class="btn btn-outline" style="border-color: white; color: white; margin-top: 15px;">View Profile</button>
+                </div>
+                <div class="guru-card">
+                    <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Guru" class="guru-img">
+                    <h3>Vikram Singh</h3>
+                    <div class="guru-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>4.0</span>
+                    </div>
+                    <div class="guru-specialty">Facebook Ads Pro</div>
+                    <p>Specialized in conversion-focused campaign optimization</p>
+                    <button class="btn btn-outline" style="border-color: white; color: white; margin-top: 15px;">View Profile</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Methods -->
+    <section class="payment-methods">
+        <div class="container">
+            <div class="section-title">
+                <h2>Easy & Secure Payments</h2>
+                <p>Multiple payment options for your convenience</p>
+            </div>
+            <div class="payment-options">
+                <div class="payment-option">
+                    <div class="payment-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h3>Credit/Debit Cards</h3>
+                    <p>Secure payments with encryption and fraud protection</p>
+                </div>
+                <div class="payment-option">
+                    <div class="payment-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>UPI Payments</h3>
+                    <p>Instant payments using any UPI app</p>
+                </div>
+                <div class="payment-option">
+                    <div class="payment-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h3>Wallet Payments</h3>
+                    <p>Pay using Paytm, PhonePe, or Amazon Pay</p>
+                </div>
+                <div class="payment-option">
+                    <div class="payment-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3>Net Banking</h3>
+                    <p>Direct bank transfers from all major banks</p>
+                </div>
+                <div class="payment-option">
+                    <div class="payment-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3>EMI Options</h3>
+                    <p>No-cost EMI options available for larger promotions</p>
+                </div>
+                <div class="payment-option">
+                    <div class="payment-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <h3>Partial Payments</h3>
+                    <p>Pay 20-25% upfront and the rest after promotion</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Preview -->
+    <section class="dashboard-preview" id="dashboard">
+        <div class="container">
+            <div class="section-title">
+                <h2>Professional Dashboard</h2>
+                <p>Manage your promotions, payments, and conversations all in one place</p>
+            </div>
+            <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Dashboard Preview" class="dashboard-img">
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-primary">Explore Dashboard</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Boost Your Content?</h2>
+            <p>Join thousands of vendors and promoters who are already growing their reach with BADHAO</p>
+            <button class="btn btn-primary" onclick="openModal('registerModal')">Start Now</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>BADHAO</h3>
+                    <p>The premier platform connecting content creators with professional promoters.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#gurus">Top Gurus</a></li>
+                        <li><a href="#dashboard">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 BADHAO. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('loginModal')">&times;</span>
+            <h2 class="modal-title">Login to Your Account</h2>
+            <form>
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password">
+                </div>
+                <button type="button" class="btn btn-primary" style="width: 100%;">Login</button>
+            </form>
+            <p style="text-align: center; margin-top: 20px;">
+                Don't have an account? <a href="#" style="color: var(--secondary);" onclick="openModal('registerModal'); closeModal('loginModal')">Register</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('registerModal')">&times;</span>
+            <h2 class="modal-title">Create an Account</h2>
+            <form>
+                <div class="form-group">
+                    <label for="register-name">Full Name</label>
+                    <input type="text" id="register-name" placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" placeholder="Create a password">
+                </div>
+                <div class="form-group">
+                    <label for="user-type">I am a:</label>
+                    <select id="user-type">
+                        <option value="vendor">Vendor (Want to promote content)</option>
+                        <option value="promoter">Promoter (Want to promote others' content)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Connect Instagram (Optional)</label>
+                    <input type="text" placeholder="Enter your Instagram username">
+                </div>
+                <div class="form-group">
+                    <label>Select Your Content Types:</label>
+                    <div class="content-types">
+                        <div class="content-type" onclick="toggleContentType(this)">
+                            <i class="fas fa-video"></i>
+                            <div>Videos</div>
+                        </div>
+                        <div class="content-type" onclick="toggleContentType(this)">
+                            <i class="fas fa-music"></i>
+                            <div>Music</div>
+                        </div>
+                        <div class="content-type" onclick="toggleContentType(this)">
+                            <i class="fas fa-book"></i>
+                            <div>Books</div>
+                        </div>
+                        <div class="content-type" onclick="toggleContentType(this)">
+                            <i class="fas fa-blog"></i>
+                            <div>Blogs</div>
+                        </div>
+                        <div class="content-type" onclick="toggleContentType(this)">
+                            <i class="fas fa-birthday-cake"></i>
+                            <div>Events</div>
+                        </div>
+                        <div class="content-type" onclick="toggleContentType(this)">
+                            <i class="fas fa-utensils"></i>
+                            <div>Food Shops</div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" style="width: 100%;">Create Account</button>
+            </form>
+            <p style="text-align: center; margin-top: 20px;">
+                Already have an account? <a href="#" style="color: var(--secondary);" onclick="openModal('loginModal'); closeModal('registerModal')">Login</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Upload Promotion Modal -->
+    <div class="modal" id="uploadPromoModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('uploadPromoModal')">&times;</span>
+            <h2 class="modal-title">Upload Promotion Request</h2>
+            <form>
+                <div class="form-group">
+                    <label for="promo-type">What do you want to promote?</label>
+                    <select id="promo-type">
+                        <option value="">-- Select content type --</option>
+                        <option value="video">Video</option>
+                        <option value="music">Music</option>
+                        <option value="book">Book</option>
+                        <option value="blog">Blog</option>
+                        <option value="event">Event</option>
+                        <option value="food">Food Shop</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="promo-description">Description</label>
+                    <textarea id="promo-description" placeholder="Describe what you want to promote" rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="target-creators">Target Creator Type</label>
+                    <select id="target-creators">
+                        <option value="">-- Select creator type --</option>
+                        <option value="micro">Micro Influencers (1K-10K followers)</option>
+                        <option value="mid">Mid-tier Influencers (10K-50K followers)</option>
+                        <option value="macro">Macro Influencers (50K-500K followers)</option>
+                        <option value="mega">Mega Influencers (500K+ followers)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="budget">Budget (₹)</label>
+                    <input type="number" id="budget" placeholder="Enter your budget">
+                </div>
+                <button type="button" class="btn btn-primary" style="width: 100%;">Upload Promotion Request</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Negotiation Modal -->
+    <div class="modal" id="negotiationModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('negotiationModal')">&times;</span>
+            <h2 class="modal-title">Negotiate Promotion Deal</h2>
+            
+            <div class="negotiation-container">
+                <div class="negotiation-status">
+                    <div>
+                        <span class="status-indicator status-red"></span>
+                        <span>Negotiation Status: Pending</span>
+                    </div>
+                    <div>Original Price: ₹1000</div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Make Your Offer:</label>
+                    <div class="amount-input">
+                        <button onclick="decreaseAmount()">-</button>
+                        <input type="number" id="negotiation-amount" value="1000" style="text-align: center;">
+                        <button onclick="increaseAmount()">+</button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Final Agreed Amount:</label>
+                    <input type="number" id="final-amount" placeholder="Enter final amount after negotiation">
+                </div>
+                
+                <div id="agreement-status" style="text-align: center; margin: 15px 0;">
+                    <span class="status-indicator status-red"></span>
+                    <span>Amounts don't match</span>
+                </div>
+            </div>
+            
+            <div class="coin-system">
+                <h3><i class="fas fa-coins"></i> Coin Rewards</h3>
+                <p>You'll earn <strong>10 coins</strong> on this transaction (₹1000 spent)</p>
+                <div class="coin-details">
+                    <span>Current Coins: 50</span>
+                    <span class="coin-value">Value: ₹50</span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="payment-plan">Select Payment Plan:</label>
+                <select id="payment-plan">
+                    <option value="full">One-time Full Payment</option>
+                    <option value="emi">EMI Option (No Cost EMI)</option>
+                    <option value="partial">Partial Payment (25% now, 75% after promotion)</option>
+                </select>
+            </div>
+            
+            <button type="button" class="btn btn-primary" style="width: 100%;" onclick="openModal('paymentModal')">Proceed to Payment</button>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('paymentModal')">&times;</span>
+            <h2 class="modal-title">Make a Payment</h2>
+            
+            <div class="payment-cards">
+                <div class="payment-card selected" onclick="selectPayment(this)">
+                    <i class="fas fa-credit-card"></i>
+                    <div>Credit/Debit Card</div>
+                </div>
+                <div class="payment-card" onclick="selectPayment(this)">
+                    <i class="fas fa-mobile-alt"></i>
+                    <div>UPI</div>
+                </div>
+                <div class="payment-card" onclick="selectPayment(this)">
+                    <i class="fas fa-wallet"></i>
+                    <div>Wallet</div>
+                </div>
+                <div class="payment-card" onclick="selectPayment(this)">
+                    <i class="fas fa-university"></i>
+                    <div>Net Banking</div>
+                </div>
+            </div>
+            
+            <div id="credit-card-form">
+                <div class="form-group">
+                    <label for="card-number">Card Number</label>
+                    <input type="text" id="card-number" placeholder="Enter card number">
+                </div>
+                <div style="display: flex; gap: 15px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label for="expiry-date">Expiry Date</label>
+                        <input type="text" id="expiry-date" placeholder="MM/YY">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" placeholder="CVV">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="card-name">Name on Card</label>
+                    <input type="text" id="card-name" placeholder="Enter name on card">
+                </div>
+            </div>
+            
+            <div id="upi-form" style="display: none;">
+                <div class="form-group">
+                    <label for="upi-id">UPI ID</label>
+                    <input type="text" id="upi-id" placeholder="Enter your UPI ID">
+                </div>
+            </div>
+            
+            <div class="coin-system">
+                <h3><i class="fas fa-coins"></i> Use Your Coins</h3>
+                <p>You have <strong>50 coins</strong> (worth ₹50)</p>
+                <div class="form-group">
+                    <label for="use-coins">Coins to use:</label>
+                    <input type="number" id="use-coins" min="0" max="50" value="0">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="promoter-select">Select Promoter</label>
+                <select id="promoter-select">
+                    <option value="">-- Select a promoter --</option>
+                    <option value="promoter1">Rajesh Kumar (YouTube Specialist)</option>
+                    <option value="promoter2">Priya Sharma (Instagram Expert)</option>
+                    <option value="promoter3">Vikram Singh (Facebook Ads Pro)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="promotion-type">Promotion Type</label>
+                <select id="promotion-type">
+                    <option value="">-- Select promotion type --</option>
+                    <option value="video">Video Promotion</option>
+                    <option value="photo">Photo Promotion</option>
+                    <option value="blog">Blog Promotion</option>
+                    <option value="event">Event Promotion</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="amount">Amount (₹)</label>
+                <input type="number" id="amount" placeholder="Enter amount" value="1000">
+            </div>
+            
+            <div class="ai-prediction">
+                <h3><i class="fas fa-robot"></i> AI Performance Prediction</h3>
+                <p>Your content is predicted to get:</p>
+                <div class="prediction-meter">
+                    <div class="prediction-fill"></div>
+                    <div class="prediction-value">75% Engagement Rate</div>
+                </div>
+                <p>Based on similar content and promoter performance</p>
+            </div>
+            
+            <button type="button" class="btn btn-primary" style="width: 100%;" onclick="processPayment()">Proceed to Payment</button>
+        </div>
+    </div>
+
+    <!-- User Profile Modal -->
+    <div class="modal" id="profileModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('profileModal')">&times;</span>
+            <h2 class="modal-title">Your Profile</h2>
+            
+            <div class="level-system">
+                <h3><i class="fas fa-trophy"></i> Level 3 Creator</h3>
+                <div class="level-progress">
+                    <div class="level-progress-bar" style="width: 60%;"></div>
+                </div>
+                <p>125/200 points to next level</p>
+                <p>Earned from: Active participation (50), Successful promotions (40), Positive reviews (35)</p>
+            </div>
+            
+            <div class="coin-system">
+                <h3><i class="fas fa-coins"></i> Coin Balance</h3>
+                <p>You have <strong class="coin-value">50 coins</strong> (worth ₹50)</p>
+                <p>Coins expire after 45 days of inactivity</p>
+            </div>
+            
+            <div class="form-group">
+                <label>Content Types:</label>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
+                    <span style="background: #e0e7ff; padding: 5px 10px; border-radius: 20px;">Videos</span>
+                    <span style="background: #e0e7ff; padding: 5px 10px; border-radius: 20px;">Music</span>
+                    <span style="background: #e0e7ff; padding: 5px 10px; border-radius: 20px;">Events</span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Connected Instagram:</label>
+                <p>@yourinstagramhandle</p>
+            </div>
+            
+            <div class="ngo-support">
+                <h3><i class="fas fa-hands-helping"></i> NGO Support Program</h3>
+                <p>During special festivals, you can help small creators by promoting their content for free</p>
+                <button class="btn btn-outline">Learn More</button>
+            </div>
+            
+            <button type="button" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Edit Profile</button>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+        
+        // Payment method selection
+        function selectPayment(element) {
+            document.querySelectorAll('.payment-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            
+            // Show appropriate form
+            const paymentType = element.querySelector('div').textContent;
+            document.getElementById('credit-card-form').style.display = 'none';
+            document.getElementById('upi-form').style.display = 'none';
+            
+            if (paymentType === 'Credit/Debit Card') {
+                document.getElementById('credit-card-form').style.display = 'block';
+            } else if (paymentType === 'UPI') {
+                document.getElementById('upi-form').style.display = 'block';
+            }
+        }
+        
+        // Content type selection
+        function toggleContentType(element) {
+            element.classList.toggle('selected');
+        }
+        
+        // Negotiation amount adjustment
+        function increaseAmount() {
+            const amountInput = document.getElementById('negotiation-amount');
+            amountInput.value = parseInt(amountInput.value) + 150;
+            checkAgreementStatus();
+        }
+        
+        function decreaseAmount() {
+            const amountInput = document.getElementById('negotiation-amount');
+            if (parseInt(amountInput.value) > 0) {
+                amountInput.value = parseInt(amountInput.value) - 150;
+            }
+            checkAgreementStatus();
+        }
+        
+        function checkAgreementStatus() {
+            const negotiationAmount = document.getElementById('negotiation-amount').value;
+            const finalAmount = document.getElementById('final-amount').value;
+            const statusElement = document.getElementById('agreement-status');
+            
+            if (finalAmount && negotiationAmount === finalAmount) {
+                statusElement.innerHTML = '<span class="status-indicator status-green"></span><span>Amounts match! Deal can be finalized</span>';
+            } else {
+                statusElement.innerHTML = '<span class="status-indicator status-red"></span><span>Amounts don\'t match</span>';
+            }
+        }
+        
+        // Process payment
+        function processPayment() {
+            const amount = document.getElementById('amount').value;
+            if (!amount || amount <= 0) {
+                alert('Please enter a valid amount');
+                return;
+            }
+            
+            const promoter = document.getElementById('promoter-select').value;
+            if (!promoter) {
+                alert('Please select a promoter');
+                return;
+            }
+            
+            const promotionType = document.getElementById('promotion-type').value;
+            if (!promotionType) {
+                alert('Please select a promotion type');
+                return;
+            }
+            
+            // Simulate payment processing
+            alert('Payment processing...');
+            setTimeout(() => {
+                alert('Payment successful! Your promotion has been scheduled.');
+                closeModal('paymentModal');
+                
+                // Show success notification with coin reward
+                const notification = document.createElement('div');
+                notification.style.position = 'fixed';
+                notification.style.bottom = '20px';
+                notification.style.right = '20px';
+                notification.style.background = 'var(--gradient-primary)';
+                notification.style.color = 'white';
+                notification.style.padding = '15px 20px';
+                notification.style.borderRadius = '10px';
+                notification.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.2)';
+                notification.style.zIndex = '1000';
+                notification.innerHTML = '<i class="fas fa-coins"></i> You earned 10 coins for this transaction!';
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    notification.style.transition = 'opacity 0.5s';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 500);
+                }, 5000);
+            }, 2000);
+        }
+        
+        // Add animations on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.2}s`;
+                card.classList.add('fade-in');
+            });
+            
+            // Simulate notification after page load
+            setTimeout(() => {
+                const notification = document.createElement('div');
+                notification.style.position = 'fixed';
+                notification.style.bottom = '20px';
+                notification.style.right = '20px';
+                notification.style.background = 'var(--gradient-primary)';
+                notification.style.color = 'white';
+                notification.style.padding = '15px 20px';
+                notification.style.borderRadius = '10px';
+                notification.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.2)';
+                notification.style.zIndex = '1000';
+                notification.innerHTML = '<i class="fas fa-gift"></i> Welcome to BADHAO! Get 100 bonus coins for signing up today.';
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    notification.style.transition = 'opacity 0.5s';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 500);
+                }, 5000);
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
